@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital Resume — ALUR MUSKAN MAHEK</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724; 
+      --card:#0b1220;
+      --muted:#98a0b3;
+      --accent:#7c5cff; 
+      --accent-2:#ff8fb3; 
+      --glass: rgba(255,255,255,0.04);
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; background:linear-gradient(180deg,var(--bg) 0%, #071024 100%);}
+    a{color:inherit;text-decoration:none}
+
+    /* Container */
+    .wrap{max-width:1000px;margin:36px auto;padding:28px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 6px 30px rgba(2,6,23,0.7);position:relative;overflow:hidden}
+
+    /* Avatar */
+    .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto;
+      border: 4px solid transparent;
+      transition: border 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 25%;
+      transition: transform 0.4s ease-in-out;
+    }
+
+    .avatar:hover {
+      border: 4px solid #6c63ff;
+      box-shadow: 0 0 20px #6c63ff;
+    }
+
+    .avatar img:hover {
+      transform: scale(1.1);
+    }
+
+    /* top row */
+    .top{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+    .title{flex:1}
+    .name{font-size:24px;font-weight:700;margin:0;color:#fff}
+    .role{margin:6px 0;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{background:var(--glass);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted)}
+    .choco{background:var(--glass);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted)}
+
+    /* typing */
+    .typing{color:var(--accent);font-weight:600}
+
+    /* layout */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 360px; /* left + right */
+      gap: 32px; /* space between columns */
+      margin-top: 22px;
+    }
+    .grid > div:first-child { padding-right: 12px; }
+
+    .card{background:rgba(255,255,255,0.02);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+
+    /* left column */
+    .section{margin-bottom:18px}
+    h3{margin:0 0 10px 0;font-size:16px;color:#e6eefc}
+    p{margin:0;color:var(--muted);line-height:1.5}
+
+    /* skills */
+    .skill{display:flex;justify-content:space-between;align-items:center;margin:8px 0}
+    .bar{flex:1;height:10px;background:rgba(255,255,255,0.03);border-radius:999px;margin-left:12px;overflow:hidden}
+    .bar > i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform-origin:left}
+
+    /* projects */
+    .projects{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .proj{padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));transition:transform .25s,ease;cursor:pointer}
+    .proj:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+    .proj h4{margin:0 0 6px 0;font-size:14px}
+    .proj p{font-size:13px;color:var(--muted)}
+
+    /* right column */
+    .right { display:flex; flex-direction: column; gap:24px; }
+    .right .meta{display:flex;flex-direction:column;gap:10px}
+    .contact-row{display:flex;gap:10px;align-items:center}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#071024;font-weight:700;cursor:pointer}
+
+    /* footer */
+    .footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* responsive */
+    @media (max-width:880px){
+      .grid{grid-template-columns:1fr;}
+      .right{margin-top:20px;}
+      .avatar{width:88px;height:88px}
+    }
+
+    /* neural-net background */
+    .bg-canvas{position:absolute;right:-120px;top:-80px;width:640px;height:640px;opacity:.12;pointer-events:none}
+
+    /* fade-in anims */
+    .reveal{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.show{opacity:1;transform:none}
+
+    /* little tag */
+    .tag{background:rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;font-size:13px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- neural network background -->
+    <svg class="bg-canvas" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g1" x1="0" x2="1">
+          <stop offset="0%" stop-color="#7c5cff"/>
+          <stop offset="100%" stop-color="#ff8fb3"/>
+        </linearGradient>
+      </defs>
+      <g id="net"></g>
+    </svg>
+
+    <!-- top row -->
+    <div class="top">
+      <div class="avatar">
+        <img src="my-image.jpg" alt="Muskan">
+      </div>
+      <div class="title">
+        <h1 class="name">ALUR MUSKAN MAHEK</h1>
+        <div class="role">
+          <div class="typing" id="typing">AI/ML Enthusiast</div>
+          <div class="chips">
+            <span class="chip">VTU • 7th Sem</span>
+            <span class="chip">AI/ML</span>
+            <span class="chip">21yr</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;margin-top:12px">
+      <a class="tag" id="downloadBtn" href="#">B.E in Artificial Intelligence & Machine Learning</a>
+      <a class="tag" href="#contact">Contact:8088805361</a>
+    </div>
+
+    <div class="grid">
+      <div>
+        <!-- About -->
+        <div class="card section reveal" style="margin-bottom:12px">
+          <h3>About</h3>
+          <p>
+            I'm an AI/ML student who finds pleasure in building practical ML systems.
+            I enjoy solving problems using AI and ML, and building end-to-end projects
+            using Python as my core programming language.
+          </p>
+        </div>
+
+        <!-- Soft Skills -->
+        <div class="card section reveal">
+          <h3>Soft Skills</h3>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+            <span class="chip">Proficient Communication</span>
+            <span class="chip">Teamwork & Collaboration</span>
+            <span class="chip">Adaptability</span>
+            <span class="chip">Time Management</span>
+          </div>
+        </div>
+
+        <!-- Technical Skills -->
+        <div class="card section reveal">
+          <h3>Technical Skills</h3>
+          <div style="margin-top:12px">
+            <div class="skill"><div>Python</div><div style="display:flex;align-items:center"><div style="font-size:13px;color:var(--muted)">80%</div><div class="bar"><i style="width:95%"></i></div></div></div>
+            <div class="skill"><div>Front-end Development</div><div style="display:flex;align-items:center"><div style="font-size:13px;color:var(--muted)">90%</div><div class="bar"><i style="width:85%"></i></div></div></div>
+            <div class="skill"><div>SQL</div><div style="display:flex;align-items:center"><div style="font-size:13px;color:var(--muted)">80%</div><div class="bar"><i style="width:80%"></i></div></div></div>
+            <div class="skill"><div>Machine Learning</div><div style="display:flex;align-items:center"><div style="font-size:13px;color:var(--muted)">70%</div><div class="bar"><i style="width:80%"></i></div></div></div>
+            <div class="skill"><div>PowerBI & Tableau</div><div style="display:flex;align-items:center"><div style="font-size:13px;color:var(--muted)">90%</div><div class="bar"><i style="width:78%"></i></div></div></div>
+          </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="card section reveal">
+          <h3>Projects</h3>
+          <div class="projects" id="projects">
+            <div class="proj">
+              <h4>YOLOv8 Assistive Robot</h4>
+              <p>Real-time object detection + voice feedback for accessibility. (OpenCV + YOLOv8 + pyttsx3)</p>
+            </div>
+            <div class="proj">
+              <h4>Disaster Prediction (India)</h4>
+              <p>Predictive model for regional risks using climate data. (RandomForest + Flask)</p>
+            </div>
+            <div class="proj">
+              <h4>Portfolio Website</h4>
+              <p>Static site with project showcase and resume download (this template is created from scratch by me).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="card section reveal">
+          <h3>Certifications</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+            <a href=https://certificate.hack2skill.com/user/aidayideasubmission/2025H2S06AID-I30085 target="_blank" class="chip" style="color:var(--accent)">
+              GOOGLE CLOUD COMPETITION: AGENTIC AI DAY
+            </a>
+            <a href="https://drive.google.com/file/d/1i6AO_6q0CqZax74YH2HUFnXQ1JbjRgQ2/view?usp=drivesdk" target="_blank" class="chip" style="color:var(--accent)">
+              BITS PILANI HACKATHON OF AI/ML
+            </a>
+            <a href="https://drive.google.com/file/d/1fWppZcjykEEOCjwxTgXR-NMD9CdEnIq-/view?usp=drivesdk" target="_blank" class="chip" style="color:var(--accent)">
+              BITS PILANI WORKSHOP OF AI/ML
+            </a>
+            <a href="https://drive.google.com/file/d/1KlkDJ_R8fxzZg_9dBpcDQ6UwFBAygMil/view?usp=drivesdk" target="_blank" class="chip" style="color:var(--accent)">
+              NXT WAVE: GEN AI MODEL
+            </a>
+            <a href="https://drive.google.com/file/d/1CenqlZgSaqL_MD3uNpPK82tRJEA1PkRN/view?usp=drivesdk" target="_blank" class="chip" style="color:var(--accent)">
+              ACCENTURE : TECHNOLOGY APPRENTICESHIP
+            </a>
+            <a href="https://drive.google.com/file/d/1OAEzfJJDyTLuEeJo1DfryaIgpLKOGn7G/view?usp=drivesdk" target="_blank" class="chip" style="color:var(--accent)">
+              AWS : SOLUTIONS ARCHITECTURE
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Sidebar -->
+      <aside class="right">
+        <!-- Contact -->
+        <div class="card meta reveal">
+          <h3>Contact</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+            <div class="contact-row"><strong>Email:</strong><div style="color:var(--muted);margin-left:8px">muskan.aiml.rymec@gmail.com</div></div>
+            <div class="contact-row"><strong>Location:</strong><div style="color:var(--muted);margin-left:8px">Bellary, Karnataka, India</div></div>
+            <div class="contact-row"><strong>GitHub:</strong><a href="https://github.com/alurmuskan" target="_blank" style="margin-left:8px;color:var(--accent)">github.com/alurmuskan</a></div>
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <button class="btn" onclick="window.print()">Print / Save PDF</button>
+            <a class="btn" href="https://www.linkedin.com/in/alur-muskan" target="_blank">View Linkedin</a>
+          </div>
+        </div>
+
+        <!-- Tools & Libraries -->
+        <div class="card reveal" id="skillsCard">
+          <h3>Tools & Libraries</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+            <span class="chip">NumPy/Pandas</span>
+            <span class="chip">scikit-learn</span>
+            <span class="chip">OpenCV</span>
+            <span class="chip">Flask</span>
+          </div>
+        </div>
+
+        <!-- Languages Known -->
+        <div class="card reveal" id="contact">
+          <h3>Languages Known</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+            <a class="chip">English</a>
+            <a class="chip">Kannada</a>
+            <a class="chip">Hindi</a>
+          </div>
+        </div>
+
+        <!-- Copy Link -->
+        <div class="card reveal" style="margin-top:12px">
+          <h4>To Copy link:</h4>
+          <a class="choco" href="#" onclick="copyLink()">Copy Resume Link</a>
+        </div>
+      </aside>
+    </div>
+
+    <div class="footer">Built with ❤️ • Replace this with your portfolio link • Tip: Press <kbd>Ctrl+P</kbd> to save as PDF</div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    const phrases = ["AI/ML Enthusiast","Deep Learning • Computer Vision","Problem Solver"];
+    let tIdx = 0, charIdx = 0, forward = true;
+    const el = document.getElementById('typing');
+    function tick(){
+      const cur = phrases[tIdx];
+      if(forward){
+        charIdx++;
+        if(charIdx>cur.length){forward=false;setTimeout(tick,1200);return}
+      } else {
+        charIdx--;
+        if(charIdx===0){forward=true;tIdx=(tIdx+1)%phrases.length}
+      }
+      el.textContent = cur.slice(0,charIdx);
+      setTimeout(tick, forward?80:40);
+    }
+    tick();
+
+    const reveals = document.querySelectorAll('.reveal');
+    function onScroll(){
+      for(const r of reveals){
+        const rect = r.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 60) r.classList.add('show');
+      }
+    }
+    window.addEventListener('scroll', onScroll); onScroll();
+
+    (function(){
+      const svg = document.querySelector('#net');
+      const W = 600, H = 600;
+      const nodes = [];
+      for(let i=0;i<12;i++){
+        const x = 80 + Math.random()*(W-160);
+        const y = 80 + Math.random()*(H-160);
+        nodes.push({x,y});
+      }
+      nodes.forEach((n,i)=>{
+        for(let j=i+1;j<nodes.length;j++){
+          const d = Math.hypot(n.x-nodes[j].x, n.y-nodes[j].y);
+          if(d < 220){
+            const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+            line.setAttribute('x1',n.x);
+            line.setAttribute('y1',n.y);
+            line.setAttribute('x2',nodes[j].x);
+            line.setAttribute('y2',nodes[j].y);
+            line.setAttribute('stroke','url(#g1)');
+            line.setAttribute('stroke-opacity','0.8');
+            line.setAttribute('stroke-width','1');
+            svg.appendChild(line);
+          }
+        }
+      });
+      nodes.forEach(n=>{
+        const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        c.setAttribute('cx',n.x);c.setAttribute('cy',n.y);c.setAttribute('r',4);
+        c.setAttribute('fill','url(#g1)');
+        svg.appendChild(c);
+      });
+    })();
+
+    function copyLink(){
+      navigator.clipboard.writeText(window.location.href).then(()=>alert("Link Copied!"))
+    }
+  </script>
+</body>
+</html>
+
+
