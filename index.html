@@ -101,12 +101,58 @@
     /* footer */
     .footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
 
-    /* responsive */
-    @media (max-width:880px){
-      .grid{grid-template-columns:1fr;}
-      .right{margin-top:20px;}
-      .avatar{width:88px;height:88px}
+    /* Tablet view (≤880px) */
+  @media (max-width: 880px) {
+    .grid {
+      grid-template-columns: 1fr; /* stack columns */
     }
+    .right {
+      margin-top: 20px;
+    }
+    .avatar {
+      width: 120px;
+      height: 120px;
+    }
+    .name {
+      font-size: 22px;
+    }
+  }
+
+/* Mobile view (≤480px) */
+  @media (max-width: 480px) {
+    .wrap {
+      padding: 16px;
+    }
+    .top {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .avatar {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 12px;
+    }
+    .name {
+      font-size: 20px;
+    }
+    .role {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .projects {
+      grid-template-columns: 1fr; /* one project per row */
+    }
+    .btn {
+      width: 100%;
+      text-align: center;
+    }
+    .contact-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
 
     /* neural-net background */
     .bg-canvas{position:absolute;right:-120px;top:-80px;width:640px;height:640px;opacity:.12;pointer-events:none}
